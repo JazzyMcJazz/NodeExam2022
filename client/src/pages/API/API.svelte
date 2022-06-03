@@ -5,16 +5,18 @@
     import {navigate} from "svelte-navigator";
 
     let authorized = false;
-    let keys = [];
+    let key;
     let newKey;
+    let loading = true;
 
     onMount(async () => {
         await fetchKeys();
     });
 
     async function fetchKeys() {
+        loading = true;
         // uses jwt cookie to authenticate
-        const response = await fetch(`${$base_url}/users/apikeys`);
+        const response = await fetch(`${$base_url}/keys/apikeys`);
 
         if (!response.ok) {
             expireCookie('jwt');
@@ -22,13 +24,15 @@
         } else {
             const data = await response.json();
             await checkApiKeys();
-            keys = data.data;
+            key = data.data;
             authorized = true;
         }
+
+        setTimeout(() => loading = false, 1500);
     }
 
     async function saveNewKey() {
-        const response = await fetch(`${$base_url}/users/apikey`, {
+        const response = await fetch(`${$base_url}/keys/apikey`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,6 +48,21 @@
         }
     }
 
+    async function deleteKey(key) {
+        const response = await fetch(`${$base_url}/keys`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                key: key
+            }),
+        });
+
+        if (response.ok)
+            await fetchKeys();
+    }
+
 </script>
 {#if authorized}
     <div class="contents">
@@ -51,19 +70,29 @@
 
         <table>
             <tbody>
-                {#each keys as key}
+                {#if loading}
+                    <tr>
+                        <td>
+                            <img alt="loading-spinner" src="./Gray_circles_rotate.gif"/>
+                        </td>
+                    </tr>
+                {:else}
+                {#if key}
                     <tr>
                         <td>{key}</td>
-                        <td class="remove">remove</td>
+                        <td class="remove" on:click={() => deleteKey(key)}>remove</td>
                     </tr>
-                {/each}
+                {:else}
+
+                {/if}
+                {/if}
             </tbody>
         </table>
 
-        <h4>Add Key</h4>
+        <h4>{#if key}Replace{:else}Add{/if} Key</h4>
         <form on:submit|preventDefault={saveNewKey}>
             <input type="text" required placeholder="API Key" bind:value={newKey}/>
-            <button type="submit">Add</button>
+            <button type="submit">{#if key}Replace{:else}Add{/if}</button>
         </form>
     </div>
 {/if}
@@ -96,5 +125,9 @@
 
     input {
         width: 250px;
+    }
+
+    img {
+        width: 40px
     }
 </style>

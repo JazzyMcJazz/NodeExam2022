@@ -13,7 +13,9 @@
 
 <nav id="nav" class="">
     <div class="nav-section left">
-        <div on:click={() => open = !open} class="nav-icon"><MdMenu/></div>
+        {#if isAuthorized}
+            <div on:click={() => open = !open} class="nav-icon"><MdMenu/></div>
+        {/if}
     </div>
     <div class="nav-section center">
         <Link to="/"><div class="logo"><div>GW2 Stats</div></div></Link>

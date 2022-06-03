@@ -1,6 +1,8 @@
 <script>
     import {expireCookie, jwtToken} from "../../stores/cookie-store";
-    import {navigate} from "svelte-navigator";
+    import {Link, navigate} from "svelte-navigator";
+    import {MdArrowForward} from "svelte-icons/md";
+    import {hasKeys} from "../../stores/general-store";
 
     export let open = true;
     $: opaque = open;
@@ -33,20 +35,40 @@
 
 <aside id="sidebar" class:open>
     <div class="container">
-        <div>
-            <div class="title">
-                <div></div>
-                <div class="left white">
-                    <h3>MENU</h3>
-                </div>
-
-                <div class="right" on:click={close}>
-                    <span class="cross1 line"></span>
-                    <span class="cross2 line"></span>
-                </div>
+        <div class="top">
+        <div class="title">
+            <div></div>
+            <div class="left white">
+                <h3>MENU</h3>
             </div>
 
+            <div class="right" on:click={close}>
+                <span class="cross1 line"></span>
+                <span class="cross2 line"></span>
+            </div>
         </div>
+
+        {#if isAuthenticated}
+            <div class="menu-items">
+                <Link to="/apikeys" on:click={close}>
+                    <div class="menu-item">
+                        <div class="item-title">API Key</div>
+                        <div class="icon"><MdArrowForward/></div>
+                    </div>
+                </Link>
+
+                {#if $hasKeys}
+                    <Link to="/account" on:click={close}>
+                        <div class="menu-item">
+                            <div class="item-title">Account Info</div>
+                            <div class="icon"><MdArrowForward/></div>
+                        </div>
+                    </Link>
+                {/if}
+            </div>
+        {/if}
+        </div>
+
         <div class="auth">
             {#if isAuthenticated}
                 <div on:click={() => {expireCookie('jwt'); close(); navigate('/')}} class="logout">Logout</div>
@@ -126,6 +148,27 @@
         transform: rotate(-45deg);
     }
 
+    .menu-items {
+        margin-top: 50px;
+    }
+
+    .menu-item {
+        display: flex;
+        height: 20px;
+        object-fit: contain;
+        justify-content: space-between;
+        margin: 6px 20px;
+        color: white;
+    }
+
+    .menu-item:hover {
+        color: deepskyblue;
+    }
+
+    .icon {
+        margin-right: 5px;
+    }
+
     .auth {
         font-weight: bold;
         text-align: center;
@@ -138,6 +181,7 @@
 
     .logout:hover {
         cursor: pointer;
+        color: deepskyblue;
     }
 
     .opaque {

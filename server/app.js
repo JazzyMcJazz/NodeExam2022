@@ -10,6 +10,8 @@ import createDB from "./database/create-database.js";
 import UserRouter from "./routers/UserRouter.js";
 import {saveNewUser} from "./repository/UserRepo.js";
 import AuthRouter from "./routers/AuthRouter.js";
+import ApiKeyRouter from "./routers/ApiKeyRouter.js";
+import GW2ApiRouter from "./routers/GW2ApiRouter.js";
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use('/api', helmet()); // restrict helmet headers to /api endpoints
 app.use('/api/auth', authLimiter); // limit requests to 6 per 15 minutes
 app.use('/api/auth', AuthRouter);
 app.use('/api/users', UserRouter);
+app.use('/api/keys', ApiKeyRouter);
+app.use('/api/gw2', GW2ApiRouter);
 
 app.use(express.static(path.resolve('../client/public')));
 app.get('*', (req, res) => res.sendFile(path.resolve('../client/public/index.html')))

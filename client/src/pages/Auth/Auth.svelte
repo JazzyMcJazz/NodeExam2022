@@ -81,7 +81,7 @@
 
         <h4>Enter Password</h4>
         <form on:submit|preventDefault={login}>
-            <input type="text" required placeholder="Password" bind:value={password}/><br/>
+            <input type="password" required placeholder="Password" bind:value={password}/><br/>
             <button type="submit">Login</button>
         </form>
         <div class="back" on:click={() => screen = USERNAME}>back</div>
@@ -91,7 +91,7 @@
         <form on:submit|preventDefault={signup}>
             <h4>Create a new account</h4>
             <input type="text" required placeholder="Email" bind:value={username}/><br/>
-            <input type="text" required placeholder="Password" bind:value={password}/><br/>
+            <input type="password" required placeholder="Password" bind:value={password}/><br/>
             <br/>
             <button type="submit">Create Account</button>
         </form>

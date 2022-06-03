@@ -3,12 +3,12 @@
     import {swipe} from 'svelte-gestures';
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Home from './pages/Home/Home.svelte'
-    import Profile from "./pages/Profile/Profile.svelte";
     import Footer from "./components/Footer/Footer.svelte";
     import NotFound from "./components/NotFound/NotFound.svelte";
     import VerifyNotification from "./components/Notifications/VerifyNotification.svelte";
     import NoApiKeyNotification from "./components/Notifications/NoApiKeyNotification.svelte";
     import API from "./pages/API/API.svelte";
+    import Account from "./pages/Account/Account.svelte";
 
     let open = false; // sidebar
 
@@ -28,7 +28,7 @@
         <Route><NotFound/></Route>
         <Route path="/"><Home/></Route>
         <Route path="/apikeys"><API/></Route>
-        <Route path="/profile"><Profile/></Route>
+        <Route path="/account"><Account/></Route>
     </main>
 
     <Footer/>
