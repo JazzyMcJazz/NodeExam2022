@@ -1,8 +1,6 @@
 import {Router} from "express";
-import {getUserByEmailOrUsername, saveUsername} from "../repository/UserRepo.js";
+import {getUserByEmailOrUsername} from "../repository/UserRepo.js";
 import {authenticate} from "../security/AuthConfig.js";
-import {getApiKeyByUserId, saveNewApiKey} from "../repository/ApiKeyRepo.js";
-import fetch from "node-fetch";
 
 const router = Router();
 

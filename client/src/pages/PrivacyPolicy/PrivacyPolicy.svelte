@@ -1,7 +1,3 @@
-<script>
-
-</script>
-
 <div class="contents">
 
     <h1>Privacy Policy</h1>

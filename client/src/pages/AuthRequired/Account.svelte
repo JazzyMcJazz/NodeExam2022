@@ -1,5 +1,4 @@
 <script>
-
     import {onMount} from "svelte";
     import {base_url} from "../../stores/general-store";
     import {navigate} from "svelte-navigator";
