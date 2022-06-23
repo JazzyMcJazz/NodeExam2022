@@ -28,7 +28,7 @@
             authorized = true;
         }
 
-        setTimeout(() => loading = false, 1500);
+        setTimeout(() => loading = false, 500);
     }
 
     async function saveNewKey() {
@@ -73,18 +73,16 @@
                 {#if loading}
                     <tr>
                         <td>
-                            <img alt="loading-spinner" src="./Gray_circles_rotate.gif"/>
+                            <img alt="loading-spinner" src="./img/Gray_circles_rotate.gif"/>
                         </td>
                     </tr>
                 {:else}
-                {#if key}
-                    <tr>
-                        <td>{key}</td>
-                        <td class="remove" on:click={() => deleteKey(key)}>remove</td>
-                    </tr>
-                {:else}
-
-                {/if}
+                    {#if key}
+                        <tr>
+                            <td>{key}</td>
+                             <td class="remove" on:click={() => deleteKey(key)}>remove</td>
+                        </tr>
+                    {/if}
                 {/if}
             </tbody>
         </table>

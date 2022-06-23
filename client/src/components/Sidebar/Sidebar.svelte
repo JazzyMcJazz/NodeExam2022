@@ -64,6 +64,24 @@
                             <div class="icon"><MdArrowForward/></div>
                         </div>
                     </Link>
+                    <Link to="/guilds" on:click={close}>
+                        <div class="menu-item">
+                            <div class="item-title">Guilds</div>
+                            <div class="icon"><MdArrowForward/></div>
+                        </div>
+                    </Link>
+                    <Link to="/wallet" on:click={close}>
+                        <div class="menu-item">
+                            <div class="item-title">Wallet</div>
+                            <div class="icon"><MdArrowForward/></div>
+                        </div>
+                    </Link>
+                    <Link to="/pvp" on:click={close}>
+                        <div class="menu-item">
+                            <div class="item-title">PvP</div>
+                            <div class="icon"><MdArrowForward/></div>
+                        </div>
+                    </Link>
                 {/if}
             </div>
         {/if}

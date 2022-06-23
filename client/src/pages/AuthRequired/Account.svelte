@@ -15,8 +15,7 @@
 
         accountData = await response.json();
 
-        setTimeout(() => dataLoaded = true, 1500);
-
+        setTimeout(() => dataLoaded = true, 500);
     });
 
 </script>
@@ -26,19 +25,27 @@
         <h2>Account Information</h2>
         <table>
             <tr>
-                <td><code>Account Name</code></td>
+                <th><code>Account Name</code></th>
                 <td><code>{accountData.name}</code></td>
             </tr>
             <tr>
-                <td><code>Created</code></td>
+                <th><code>Created</code></th>
                 <td><code>{accountData.created.slice(0, 10)}</code></td>
             </tr>
             <tr>
-                <th class="guilds-header" colspan="2">Guilds</th>
+                <th><code>World</code></th>
+                <td><code>{accountData.world.name}</code></td>
             </tr>
-            {#each accountData.guilds as guild}
+            <tr>
+                <th><code>Fractal Level</code></th>
+                <td><code>{accountData.fractal_level}</code></td>
+            </tr>
+            <tr>
+                <th colspan="2" class="center access"><code>Access</code></th>
+            </tr>
+            {#each accountData.access as expac}
                 <tr>
-                    <td colspan="2" class="guild-link"><code>{guild.name}[{guild.tag}]</code></td>
+                    <td colspan="2" class="center"><code>{expac}</code></td>
                 </tr>
             {/each}
 
@@ -46,7 +53,7 @@
     </div>
 {:else}
     <div class="contents">
-        <img alt="loading-spinner" src="./Gray_circles_rotate.gif"/>
+        <img alt="loading-spinner" src="./img/Gray_circles_rotate.gif"/>
     </div>
 {/if}
 
@@ -59,31 +66,23 @@
 
     table {
         margin: 0 auto;
+        width: 250px;
     }
 
-    td {
+    td, th {
         text-align: left;
     }
 
-    td:nth-child(odd) {
-        padding-right: 20px ;
+    .access {
+        padding-top: 20px;
     }
 
-    .guilds-header {
-        padding-top: 20px;
+    .center {
+        text-align: center;
     }
 
     img {
         margin-top: calc(50vh - 100px);
         width: 40px;
-    }
-
-    .guild-link {
-        cursor: pointer;
-        color: deepskyblue;
-    }
-
-    .guild-link:hover {
-        text-decoration: underline;
     }
 </style>

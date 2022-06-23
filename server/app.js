@@ -8,14 +8,19 @@ import helmet from "helmet";
 import {authLimiter} from "./security/AuthConfig.js";
 import createDB from "./database/create-database.js";
 import UserRouter from "./routers/UserRouter.js";
-import {saveNewUser} from "./repository/UserRepo.js";
 import AuthRouter from "./routers/AuthRouter.js";
 import ApiKeyRouter from "./routers/ApiKeyRouter.js";
 import GW2ApiRouter from "./routers/GW2ApiRouter.js";
+import http from "http";
+import socket from './io/socket.js';
+import {Server} from "socket.io";
 
 const app = express();
-
+const server = http.createServer(app);
+const io = new Server(server);
 await createDB();
+
+socket.start(io);
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -35,7 +40,7 @@ app.get('*', (req, res) => res.sendFile(path.resolve('../client/public/index.htm
 // await saveNewUser({email: 'bob@email.com', password: 'asdf'});
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, (err) => {
+server.listen(PORT, (err) => {
    if (err) console.log(err);
    else console.log(`[${new Date().toLocaleString()}] SERVER: Server running on port`, PORT)
 });

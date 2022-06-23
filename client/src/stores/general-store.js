@@ -4,7 +4,7 @@ import {expireCookie} from "./cookie-store";
 export const base_url = readable(`${window.location.origin}/api`);
 export const hasKeys = writable(true);
 
-export async function checkApiKeys() {
+export const checkApiKeys = async () => {
     const url = `${window.location.origin}/api`
     const response = await fetch(`${url}/keys/hasapikeys`);
 

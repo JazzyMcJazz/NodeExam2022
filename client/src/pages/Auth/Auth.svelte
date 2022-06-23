@@ -1,6 +1,6 @@
 <script>
     import {base_url} from "../../stores/general-store";
-    import {updateJwtToken} from "../../stores/cookie-store";
+    import {updateCookieStore} from "../../stores/cookie-store";
 
     // used to display forms for username/email, password (login) or new account form
     const USERNAME = 'USERNAME', PASSWORD = 'PASSWORD', NEW = 'NEW';
@@ -40,7 +40,7 @@
             }),
         });
 
-        if (response.ok) updateJwtToken();
+        if (response.ok) updateCookieStore();
         else {
 
         }
@@ -60,7 +60,7 @@
         });
 
         if (response.ok) {
-            updateJwtToken();
+            updateCookieStore();
         }
     }
 
