@@ -2,11 +2,13 @@
     import {onMount} from "svelte";
     import {base_url} from "../../stores/general-store";
     import {navigate} from "svelte-navigator";
+    import Chat from "../../components/Chat/Chat.svelte";
 
     export let id;
 
     let dataLoaded = false;
     let showMembers = false;
+    let showChat = false;
     let guildData;
     let members;
 
@@ -97,7 +99,11 @@
             {/if}
         </table>
     </div>
-
+    {#if showChat}
+        <Chat bind:showChat guild={guildData.id}/>
+    {:else}
+        <h5 on:click={() => showChat = !showChat}>Open Guild Chat</h5>
+    {/if}
 {:else}
     <div class="contents">
         <img alt="loading-spinner" src="../img/Gray_circles_rotate.gif"/>
@@ -153,5 +159,16 @@
     img {
         margin-top: calc(50vh - 100px);
         width: 40px;
+    }
+
+    h5 {
+        color: deepskyblue;
+        text-align: center;
+    }
+
+    h5:hover {
+
+        cursor: pointer;
+        text-decoration: underline;
     }
 </style>

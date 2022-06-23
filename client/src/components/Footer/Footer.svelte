@@ -1,9 +1,14 @@
 <script>
     import {navigate} from "svelte-navigator";
+    import {onMount} from "svelte";
 
-    export let userCount;
+    let userCount;
 
-    // $: console.log(userCount);
+    onMount(() => {
+        const socket = io('/users');
+        socket.on('count', data => userCount = data.count);
+    });
+
 </script>
 
 <footer>

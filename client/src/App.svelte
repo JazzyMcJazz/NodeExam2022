@@ -9,23 +9,12 @@
     import NoApiKeyNotification from "./components/Notifications/NoApiKeyNotification.svelte";
     import API from "./pages/AuthRequired/API.svelte";
     import Account from "./pages/AuthRequired/Account.svelte";
-    import {onMount} from "svelte";
     import CookieDisclaimer from "./components/Notifications/CookieDisclaimer.svelte";
     import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy.svelte";
     import Guilds from "./pages/AuthRequired/Guilds.svelte";
     import Guild from "./pages/AuthRequired/Guild.svelte";
     import Wallet from "./pages/AuthRequired/Wallet.svelte";
     import Pvp from "./pages/AuthRequired/Pvp.svelte";
-
-    let userCount;
-
-    onMount( async () => {
-
-        const socket = io();
-        socket.on('count', data => userCount = data.count);
-    });
-
-
 
     let open = false; // sidebar
 
@@ -55,7 +44,7 @@
         <Route path="/privacy-policy"><PrivacyPolicy/></Route>
     </main>
 
-    <Footer bind:userCount/>
+    <Footer/>
 </Router>
 
 <style>
